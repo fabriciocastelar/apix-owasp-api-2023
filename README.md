@@ -2,8 +2,8 @@
 
 ## 📊 Sobre o Projeto
 
-Este projeto demonstra de forma prática as **10 principais vulnerabilidades** do OWASP API Security Top 10 última edição.
-Até o presente momento a edição 2023 é a última disponibilizada pela [OWASP API Security](https://owasp.org/API-Security).
+Este projeto demonstra de forma prática as **10 principais vulnerabilidades** do OWASP API Security Top 10 última edição.  
+Até o presente momento (04/2025) a edição 2023 é a última disponibilizada pela [OWASP API Security](https://owasp.org/API-Security).
 
 Cada vulnerabilidade é ilustrada com:
 - Uma rota vulnerável (com falha proposital)
@@ -53,7 +53,7 @@ API disponível em: [http://localhost:8000](http://localhost:8000)
 
 ## 🔢 Testes e Demonstrações
 
-Cada vulnerabilidade está acessível via prefixo `/apiN`, onde `N` corresponde ao número da vulnerabilidade.
+Cada vulnerabilidade está acessível via prefixo `/apiN`, onde `N` corresponde ao número da vulnerabilidade.  
 Todas as rotas aceitam o header `X-Secure-Mode: true|false` para alternar entre comportamento vulnerável e seguro.
 
 ### API-1 - Broken Object Level Authorization
@@ -155,14 +155,14 @@ Todas as rotas aceitam o header `X-Secure-Mode: true|false` para alternar entre 
 ### API-7 - Server Side Request Forgery (SSRF)
 **Descrição:** Requisições feitas pelo servidor sem validação podem expor recursos internos.
 
-**Pré-requisito:**  Para executar esta DEMO, tem que subir um servidor na porta 80
-  1º) Entrar no DOS (cmd);
-  2º) Execute o comando abaixo:
+**Pré-requisito:**  Para executar esta DEMO, tem que subir um servidor na porta 80  
+1º) Entrar no DOS (cmd);  
+2º) Execute o comando abaixo:
   ```bash
   C:\> python -m http.server 80
   ```
-  3º) Executar o cURL de ataque;
-  4º) Mostrar no DOS que o request chegou e não deveria.
+3º) Executar o cURL de ataque;  
+4º) Mostrar no DOS que o request chegou e não deveria.
 
 
 **Simulação:** Servidor acessando `localhost` por requisição externa.

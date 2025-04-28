@@ -1,14 +1,15 @@
-# OWASP API Security Top 10 - Demo Project
+# OWASP API Security Top 10 2023 - Demo Project
 
 ## 📊 Sobre o Projeto
 
-Este projeto demonstra de forma prática as **10 principais vulnerabilidades** do OWASP API Security Top 10 (edição 2023).
+Este projeto demonstra de forma prática as **10 principais vulnerabilidades** do OWASP API Security Top 10 última edição.
+Até o presente momento a edição 2023 é a última disponibilizada pela [OWASP API Security](https://owasp.org/API-Security).
 
 Cada vulnerabilidade é ilustrada com:
 - Uma rota vulnerável (com falha proposital)
 - A respectiva correção aplicada no mesmo endpoint
 
-A demo foi desenvolvida para a palestra **"10 formas de invadir sua API — e como impedir todas elas"** no evento **APIX 2025**.
+A demo foi desenvolvida para a palestra **"10 formas de invadir sua API — e como impedir todas elas"** no evento [APIX 2025](https://www.sensedia.com.br/apix).
 
 ---
 
@@ -24,8 +25,8 @@ A demo foi desenvolvida para a palestra **"10 formas de invadir sua API — e co
 
 ### 1. Clone o repositório
 ```bash
-git clone https://github.com/seu-usuario/api-security-demo.git
-cd api-security-demo
+git clone https://github.com/fabriciocastelar/apix-owasp-api-2023.git
+cd apix-owasp-api-2023
 ```
 
 ### 2. Crie o ambiente virtual e ative-o
@@ -153,6 +154,16 @@ Todas as rotas aceitam o header `X-Secure-Mode: true|false` para alternar entre 
 
 ### API-7 - Server Side Request Forgery (SSRF)
 **Descrição:** Requisições feitas pelo servidor sem validação podem expor recursos internos.
+
+**Pré-requisito:**  Para executar esta DEMO, tem que subir um servidor na porta 80
+  1º) Entrar no DOS (cmd);
+  2º) Execute o comando abaixo:
+  ```bash
+  C:\> python -m http.server 80
+  ```
+  3º) Executar o cURL de ataque;
+  4º) Mostrar no DOS que o request chegou e não deveria.
+
 
 **Simulação:** Servidor acessando `localhost` por requisição externa.
 - Vulnerável:

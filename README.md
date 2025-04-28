@@ -54,7 +54,7 @@ API disponível em: [http://localhost:8000](http://localhost:8000)
 ## 🔢 Testes e Demonstrações
 
 Cada vulnerabilidade está acessível via prefixo `/apiN`, onde `N` corresponde ao número da vulnerabilidade.  
-Todas as rotas aceitam o header `X-Secure-Mode: true|false` para alternar entre comportamento vulnerável e seguro.
+Todas as rotas aceitam o header `X-Secure-Mode: true|false` para alternar entre comportamento vulnerável e seguro.  
 
 ### API-1 - Broken Object Level Authorization
 **Descrição:** Controle inadequado de acesso a objetos individuais.
@@ -219,6 +219,11 @@ Todas as rotas aceitam o header `X-Secure-Mode: true|false` para alternar entre 
 ### API-10 - Unsafe Consumption of APIs
 **Descrição:** Confiar cegamente em APIs de terceiros sem validação.
 
+**Pré-requisito:**  Para executar esta DEMO, é necessário:  
+1º) Se cadastrar no site: https://www.weatherapi.com;  
+2º) [Logar](https://www.weatherapi.com/login.aspx) no site;  
+3º) Pegar a existente ou gerar uma nova "API Key".  
+
 **Simulação:** Consumir resposta externa sem validar estrutura.
 - Vulnerável:
   ```bash
@@ -228,7 +233,11 @@ Todas as rotas aceitam o header `X-Secure-Mode: true|false` para alternar entre 
   ```bash
   curl "http://localhost:8000/api10/external/weather?city=Sao Paulo&api_key=SUA_API_KEY" -H "X-Secure-Mode: true"
   ```
-**Conclusão:** No modo seguro, apenas campos esperados são aceitos.
+**Conclusão:** No modo seguro, apenas campos esperados são aceitos.  
+
+---
+
+😉 Na pasta "tests", contem o arquivo da collection Postman com todos os cenários descritos acima. É só baixar e rodar no [Postman](https://postman.com/).  ✔️  
 
 ---
 

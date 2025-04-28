@@ -1,3 +1,5 @@
+# pip install uvicorn
+# .\venv\Scripts\activate
 # uvicorn app.main:app --reload
 
 from fastapi import FastAPI

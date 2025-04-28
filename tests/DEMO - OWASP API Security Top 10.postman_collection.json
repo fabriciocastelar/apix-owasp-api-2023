@@ -1,0 +1,946 @@
+{
+	"info": {
+		"_postman_id": "d7494145-0be2-4c3c-85ec-482c8fd39320",
+		"name": "DEMO - OWASP API Security Top 10",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "67200"
+	},
+	"item": [
+		{
+			"name": "API-1",
+			"item": [
+				{
+					"name": "(api-1) fault",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-Secure-Mode",
+								"value": "false"
+							},
+							{
+								"key": "X-User-ID",
+								"value": "1"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8000/api1/users/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api1",
+								"users",
+								"2"
+							]
+						},
+						"description": "Generated from cURL: curl -H \"X-User-ID: 1\" -H \"X-Secure-Mode: false\" http://localhost:8000/api1/users/2\r\n"
+					},
+					"response": []
+				},
+				{
+					"name": "(api-1) secure",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-Secure-Mode",
+								"value": "true"
+							},
+							{
+								"key": "X-User-ID",
+								"value": "1"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8000/api1/users/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api1",
+								"users",
+								"2"
+							]
+						},
+						"description": "Generated from cURL: curl -H \"X-User-ID: 1\" -H \"X-Secure-Mode: false\" http://localhost:8000/api1/users/2\r\n"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "API-2",
+			"item": [
+				{
+					"name": "login",
+					"item": [
+						{
+							"name": "(api-2) login - fault",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "X-Secure-Mode",
+										"value": "false"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"username\": \"robber\",\r\n    \"password\": \"pass123\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8000/api2/login",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8000",
+									"path": [
+										"api2",
+										"login"
+									]
+								},
+								"description": "Generated from cURL: curl -X POST http://localhost:8000/api2/login -H \"Content-Type: application/json\" -H \"X-Secure-Mode: false\" -d '{\"username\": \"evil\", \"password\": \"123\"}'\r\n"
+							},
+							"response": []
+						},
+						{
+							"name": "(api-2) login - secure",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "X-Secure-Mode",
+										"value": "true"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"username\": \"alice\",\r\n    \"password\": \"1234\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8000/api2/login",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8000",
+									"path": [
+										"api2",
+										"login"
+									]
+								},
+								"description": "Generated from cURL: curl -X POST http://localhost:8000/api2/login -H \"Content-Type: application/json\" -H \"X-Secure-Mode: true\" -d '{\"username\": \"alice\", \"password\": \"1234\"}'\r\n"
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "profile",
+					"item": [
+						{
+							"name": "(api-2) profile - Invalid token",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "wrong-token"
+									},
+									{
+										"key": "X-Secure-Mode",
+										"value": "true"
+									}
+								],
+								"url": {
+									"raw": "http://localhost:8000/api2/profile",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8000",
+									"path": [
+										"api2",
+										"profile"
+									]
+								},
+								"description": "Generated from cURL: curl -H \"Authorization: wrong-token\" -H \"X-Secure-Mode: true\" http://localhost:8000/api2/profile\r\n"
+							},
+							"response": []
+						},
+						{
+							"name": "(api-2) profile - Correct token",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "token-alice-123"
+									},
+									{
+										"key": "X-Secure-Mode",
+										"value": "true"
+									}
+								],
+								"url": {
+									"raw": "http://localhost:8000/api2/profile",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8000",
+									"path": [
+										"api2",
+										"profile"
+									]
+								},
+								"description": "Generated from cURL: curl -H \"Authorization: token-bob-abc\" -H \"X-Secure-Mode: true\" http://localhost:8000/api2/profile\r\n"
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "API-3",
+			"item": [
+				{
+					"name": "(api-3) fault",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "X-Secure-Mode",
+								"value": "false"
+							},
+							{
+								"key": "X-User-ID",
+								"value": "2"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Bob Hacker\",\r\n    \"email\": \"bob@evil.com\",\r\n    \"is_admin\": true\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/api3/users/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api3",
+								"users",
+								"2"
+							]
+						},
+						"description": "Generated from cURL: curl -X PUT http://localhost:8000/api3/users/2 \\\r\n  -H \"Content-Type: application/json\" \\\r\n  -H \"X-User-ID: 2\" \\\r\n  -H \"X-Secure-Mode: false\" \\\r\n  -d '{\"name\": \"Bob Hacker\", \"email\": \"bob@evil.com\", \"is_admin\": true}'\r\n"
+					},
+					"response": []
+				},
+				{
+					"name": "(api-3) secure",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "X-Secure-Mode",
+								"value": "true"
+							},
+							{
+								"key": "X-User-ID",
+								"value": "2"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Bob Hacker\",\r\n    \"email\": \"bob@evil.com\",\r\n    \"is_admin\": true\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/api3/users/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api3",
+								"users",
+								"2"
+							]
+						},
+						"description": "Generated from cURL: curl -X PUT http://localhost:8000/api3/users/2 \\\r\n  -H \"Content-Type: application/json\" \\\r\n  -H \"X-User-ID: 2\" \\\r\n  -H \"X-Secure-Mode: true\" \\\r\n  -d '{\"name\": \"Bob Hacker\", \"email\": \"bob@evil.com\", \"is_admin\": true}'\r\n"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "API-4",
+			"item": [
+				{
+					"name": "(api-4) fault",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-Secure-Mode",
+								"value": "false"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8000/api4/items?limit=10000",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api4",
+								"items"
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "10000"
+								}
+							]
+						},
+						"description": "Generated from cURL: curl -H \"X-Secure-Mode: false\" \"http://localhost:8000/api4/items?limit=10000\"\r\n"
+					},
+					"response": []
+				},
+				{
+					"name": "(api-4) secure",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-Secure-Mode",
+								"value": "true"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8000/api4/items?limit=10000",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api4",
+								"items"
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "10000"
+								}
+							]
+						},
+						"description": "Generated from cURL: curl -H \"X-Secure-Mode: true\" \"http://localhost:8000/api4/items?limit=10000\"\r\n"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "API-5",
+			"item": [
+				{
+					"name": "(api-5) fault (\"usuário comum pode deletar\")",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "X-Secure-Mode",
+								"value": "false"
+							},
+							{
+								"key": "X-User-ID",
+								"value": "2"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8000/api5/admin/delete-user/3",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api5",
+								"admin",
+								"delete-user",
+								"3"
+							]
+						},
+						"description": "Generated from cURL: curl -X DELETE http://localhost:8000/api5/admin/delete-user/3 \\\r\n  -H \"X-User-ID: 2\" \\\r\n  -H \"X-Secure-Mode: false\"\r\n"
+					},
+					"response": []
+				},
+				{
+					"name": "(api-5) secure (\"nega acesso a não-admins\")",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "X-Secure-Mode",
+								"value": "true"
+							},
+							{
+								"key": "X-User-ID",
+								"value": "2"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8000/api5/admin/delete-user/3",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api5",
+								"admin",
+								"delete-user",
+								"3"
+							]
+						},
+						"description": "Generated from cURL: curl -X DELETE http://localhost:8000/api5/admin/delete-user/3 \\\r\n  -H \"X-User-ID: 2\" \\\r\n  -H \"X-Secure-Mode: true\"\r\n"
+					},
+					"response": []
+				},
+				{
+					"name": "(api-5) secure (\"usuário admin\")",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "X-Secure-Mode",
+								"value": "true"
+							},
+							{
+								"key": "X-User-ID",
+								"value": "1",
+								"description": "admin"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8000/api5/admin/delete-user/3",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api5",
+								"admin",
+								"delete-user",
+								"3"
+							]
+						},
+						"description": "Generated from cURL: curl -X DELETE http://localhost:8000/api5/admin/delete-user/3 \\\r\n  -H \"X-User-ID: 1\" \\\r\n  -H \"X-Secure-Mode: true\"\r\n"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "API-6",
+			"item": [
+				{
+					"name": "(api-6) fault (qualquer um pode completar qualquer pedido)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-Secure-Mode",
+								"value": "false"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8000/api6/orders/1002/complete",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api6",
+								"orders",
+								"1002",
+								"complete"
+							]
+						},
+						"description": "Generated from cURL: curl -X POST http://localhost:8000/api6/orders/1002/complete \\\r\n  -H \"X-Secure-Mode: false\"\r\n"
+					},
+					"response": []
+				},
+				{
+					"name": "(api-6) secure (verifica propriedade do pedido)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-Secure-Mode",
+								"value": "true"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8000/api6/orders/1002/complete",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api6",
+								"orders",
+								"1002",
+								"complete"
+							]
+						},
+						"description": "Generated from cURL: curl -X POST http://localhost:8000/api6/orders/1002/complete \\\r\n  -H \"X-Secure-Mode: true\"\r\n"
+					},
+					"response": []
+				},
+				{
+					"name": "(api-6) secure (identificação correta)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-User-ID",
+								"value": "2"
+							},
+							{
+								"key": "X-Secure-Mode",
+								"value": "true"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8000/api6/orders/1002/complete",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api6",
+								"orders",
+								"1002",
+								"complete"
+							]
+						},
+						"description": "Generated from cURL: curl -X POST http://localhost:8000/api6/orders/1002/complete \\\r\n  -H \"X-User-ID: 2\" \\\r\n  -H \"X-Secure-Mode: true\"\r\n"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "API-7",
+			"item": [
+				{
+					"name": "(api-7) fault",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"/* ATENÇÃO */\r",
+									"/* Para executar esta DEMO, tem que subir um servidor na porta 80\r",
+									"1º) Entrar no DOS (cmd);\r",
+									"2º) Execute o comando abaixo:\r",
+									"    C:\\> python -m http.server 80\r",
+									"3º) Executar o cURL de ataque;\r",
+									"4º) Mostrar no DOS que o request chegou e não deveria.\r",
+									"*/"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-Secure-Mode",
+								"value": "false"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8000/api7/fetch-url?target_url=http://127.0.0.1:80",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api7",
+								"fetch-url"
+							],
+							"query": [
+								{
+									"key": "target_url",
+									"value": "http://127.0.0.1:80"
+								}
+							]
+						},
+						"description": "Generated from cURL: curl \"http://localhost:8000/api7/fetch-url?target_url=http://127.0.0.1:80\" -H \"X-Secure-Mode: false\"\r\n"
+					},
+					"response": []
+				},
+				{
+					"name": "(api-7) secure (bloqueio de localhost)",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-Secure-Mode",
+								"value": "true"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8000/api7/fetch-url?target_url=http://127.0.0.1:80",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api7",
+								"fetch-url"
+							],
+							"query": [
+								{
+									"key": "target_url",
+									"value": "http://127.0.0.1:80"
+								}
+							]
+						},
+						"description": "Generated from cURL: curl \"http://localhost:8000/api7/fetch-url?target_url=http://127.0.0.1:80\" -H \"X-Secure-Mode: true\"\r\n"
+					},
+					"response": []
+				},
+				{
+					"name": "(api-7) secure (permitido)",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-Secure-Mode",
+								"value": "true"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8000/api7/fetch-url?target_url=https://jsonplaceholder.typicode.com/posts/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api7",
+								"fetch-url"
+							],
+							"query": [
+								{
+									"key": "target_url",
+									"value": "https://jsonplaceholder.typicode.com/posts/1"
+								}
+							]
+						},
+						"description": "Generated from cURL: curl \"http://localhost:8000/api7/fetch-url?target_url=https://jsonplaceholder.typicode.com/posts/1\" -H \"X-Secure-Mode: true\"\r\n"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "API-8",
+			"item": [
+				{
+					"name": "(api-8) fault",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-Secure-Mode",
+								"value": "false"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8000/api8/debug",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api8",
+								"debug"
+							]
+						},
+						"description": "Generated from cURL: curl \"http://localhost:8000/api8/debug\" -H \"X-Secure-Mode: false\"\r\n"
+					},
+					"response": []
+				},
+				{
+					"name": "(api-8) secure",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-Secure-Mode",
+								"value": "true"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8000/api8/debug",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api8",
+								"debug"
+							]
+						},
+						"description": "Generated from cURL: curl -i \"http://localhost:8000/api8/debug\" -H \"X-Secure-Mode: true\"\r\n"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "API-9",
+			"item": [
+				{
+					"name": "(api-9) fault (acesso a rota interna (internal/config))",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-Secure-Mode",
+								"value": "false"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8000/api9/internal/config",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api9",
+								"internal",
+								"config"
+							]
+						},
+						"description": "Generated from cURL: curl \"http://localhost:8000/api9/internal/config\" -H \"X-Secure-Mode: false\"\r\n"
+					},
+					"response": []
+				},
+				{
+					"name": "(api-9) secure (acesso negado (internal/config))",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-Secure-Mode",
+								"value": "true"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8000/api9/internal/config",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api9",
+								"internal",
+								"config"
+							]
+						},
+						"description": "Generated from cURL: curl \"http://localhost:8000/api9/internal/config\" -H \"X-Secure-Mode: true\"\r\n"
+					},
+					"response": []
+				},
+				{
+					"name": "(api-9) secure (acesso a endpoint legado (v1/legacy-endpoint))",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-Secure-Mode",
+								"value": "false"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8000/api9/v1/legacy-endpoint",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api9",
+								"v1",
+								"legacy-endpoint"
+							]
+						},
+						"description": "Generated from cURL: curl \"http://localhost:8000/api9/v1/legacy-endpoint\" -H \"X-Secure-Mode: false\"\r\n"
+					},
+					"response": []
+				},
+				{
+					"name": "(api-9) secure (endpoint legado bloqueado)",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-Secure-Mode",
+								"value": "true"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8000/api9/v1/legacy-endpoint",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api9",
+								"v1",
+								"legacy-endpoint"
+							]
+						},
+						"description": "Generated from cURL: curl \"http://localhost:8000/api9/v1/legacy-endpoint\" -H \"X-Secure-Mode: true\"\r\n"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "API-10",
+			"item": [
+				{
+					"name": "(api-10) fault",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-Secure-Mode",
+								"value": "false"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8000/api10/external/weather?city=Sao Paulo&api_key=9631f4bbc42e4764bbe213424252604",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api10",
+								"external",
+								"weather"
+							],
+							"query": [
+								{
+									"key": "city",
+									"value": "Sao Paulo"
+								},
+								{
+									"key": "api_key",
+									"value": "9631f4bbc42e4764bbe213424252604",
+									"description": "https://www.weatherapi.com/my/"
+								}
+							]
+						},
+						"description": "Generated from cURL: curl \"http://localhost:8000/api10/external/weather?city=Sao Paulo&api_key=SUA_API_KEY\" -H \"X-Secure-Mode: false\"\r\n"
+					},
+					"response": []
+				},
+				{
+					"name": "(api-10) secure",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-Secure-Mode",
+								"value": "true"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8000/api10/external/weather?city=Sao Paulo&api_key=nononono",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api10",
+								"external",
+								"weather"
+							],
+							"query": [
+								{
+									"key": "city",
+									"value": "Sao Paulo"
+								},
+								{
+									"key": "api_key",
+									"value": "nononono",
+									"description": "https://www.weatherapi.com/my/"
+								}
+							]
+						},
+						"description": "Generated from cURL: curl \"http://localhost:8000/api10/external/weather?city=Sao Paulo&api_key=SUA_API_KEY\" -H \"X-Secure-Mode: true\"\r\n"
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

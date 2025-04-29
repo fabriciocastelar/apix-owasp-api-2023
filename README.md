@@ -1,3 +1,9 @@
+![Company:](https://cdn.prod.website-files.com/64ac7bf2029f08bfbbe5c7d2/64ac7bf2029f08bfbbe5c90e_Sensedia_horizontal_color-01.svg)
+![APIX:](https://cdn.prod.website-files.com/6474ba281ebb6ae9242441af/6489a225c51875fda6922b9c_Apix%20logo.svg)  
+![Python](https://img.shields.io/badge/python-3.10%2B-blue)
+![FastAPI](https://img.shields.io/badge/FastAPI-Framework-green)
+![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)
+
 # OWASP API Security Top 10 2023 - Demo Project
 
 ## 📊 Sobre o Projeto
@@ -6,8 +12,8 @@ Este projeto demonstra de forma prática as **10 principais vulnerabilidades** d
 Até o presente momento (04/2025) a edição 2023 é a última disponibilizada pela [OWASP API Security](https://owasp.org/API-Security).
 
 Cada vulnerabilidade é ilustrada com:
-- Uma rota vulnerável (com falha proposital)
-- A respectiva correção aplicada no mesmo endpoint
+- Uma rota vulnerável 🔓 (com falha proposital)
+- A respectiva correção 🔐 aplicada no mesmo endpoint
 
 A demo foi desenvolvida para a palestra **"10 formas de invadir sua API — e como impedir todas elas"** no evento [APIX 2025](https://www.sensedia.com.br/apix).
 
@@ -57,14 +63,15 @@ Cada vulnerabilidade está acessível via prefixo `/apiN`, onde `N` corresponde 
 Todas as rotas aceitam o header `X-Secure-Mode: true|false` para alternar entre comportamento vulnerável e seguro.  
 
 ### API-1 - Broken Object Level Authorization
+*Falhas no controle de acesso a objetos.*  
 **Descrição:** Controle inadequado de acesso a objetos individuais.
 
 **Simulação:** Acessar dados de outro usuário sem permissão.
-- Vulnerável:
+- 🔓 Vulnerável:
   ```bash
   curl http://localhost:8000/api1/users/2 -H "X-User-ID: 1" -H "X-Secure-Mode: false"
   ```
-- Seguro:
+- 🔐 Seguro:
   ```bash
   curl http://localhost:8000/api1/users/2 -H "X-User-ID: 1" -H "X-Secure-Mode: true"
   ```
@@ -73,14 +80,15 @@ Todas as rotas aceitam o header `X-Secure-Mode: true|false` para alternar entre 
 ---
 
 ### API-2 - Broken Authentication
+*Autenticação falha ou ausente.*  
 **Descrição:** Falhas na autenticação de usuários.
 
 **Simulação:** Login aceitando credenciais inválidas.
-- Vulnerável:
+- 🔓 Vulnerável:
   ```bash
   curl -X POST http://localhost:8000/api2/login -H "Content-Type: application/json" -H "X-Secure-Mode: false" -d '{"username": "evil", "password": "123"}'
   ```
-- Seguro:
+- 🔐 Seguro:
   ```bash
   curl -X POST http://localhost:8000/api2/login -H "Content-Type: application/json" -H "X-Secure-Mode: true" -d '{"username": "alice", "password": "1234"}'
   ```
@@ -89,14 +97,15 @@ Todas as rotas aceitam o header `X-Secure-Mode: true|false` para alternar entre 
 ---
 
 ### API-3 - Broken Object Property Level Authorization
+*Falta de validação em propriedades do objeto.*  
 **Descrição:** Modificação indevida de atributos sensíveis.
 
 **Simulação:** Usuário comum altera campo `is_admin`.
-- Vulnerável:
+- 🔓 Vulnerável:
   ```bash
   curl -X PUT http://localhost:8000/api3/users/2 -H "Content-Type: application/json" -H "X-User-ID: 2" -H "X-Secure-Mode: false" -d '{"name": "Bob Hacker", "email": "bob@evil.com", "is_admin": true}'
   ```
-- Seguro:
+- 🔐 Seguro:
   ```bash
   curl -X PUT http://localhost:8000/api3/users/2 -H "Content-Type: application/json" -H "X-User-ID: 2" -H "X-Secure-Mode: true" -d '{"name": "Bob Hacker", "email": "bob@evil.com", "is_admin": true}'
   ```
@@ -105,14 +114,15 @@ Todas as rotas aceitam o header `X-Secure-Mode: true|false` para alternar entre 
 ---
 
 ### API-4 - Unrestricted Resource Consumption
+*Uso excessivo e não limitado de recursos.*  
 **Descrição:** Consumo excessivo de recursos.
 
 **Simulação:** Solicitação de milhares de registros sem limite.
-- Vulnerável:
+- 🔓 Vulnerável:
   ```bash
   curl "http://localhost:8000/api4/items?limit=10000" -H "X-Secure-Mode: false"
   ```
-- Seguro:
+- 🔐 Seguro:
   ```bash
   curl "http://localhost:8000/api4/items?limit=10000" -H "X-Secure-Mode: true"
   ```
@@ -121,14 +131,15 @@ Todas as rotas aceitam o header `X-Secure-Mode: true|false` para alternar entre 
 ---
 
 ### API-5 - Broken Function Level Authorization
+*Permissões incorretas para diferentes funções.*  
 **Descrição:** Controle inadequado de autorização em funções administrativas.
 
 **Simulação:** Usuário comum tenta executar uma função restrita (excluir outro usuário).
-- Vulnerável:
+- 🔓 Vulnerável:
   ```bash
   curl -X DELETE http://localhost:8000/api5/admin/delete-user/3 -H "X-User-ID: 2" -H "X-Secure-Mode: false"
   ```
-- Seguro:
+- 🔐 Seguro:
   ```bash
   curl -X DELETE http://localhost:8000/api5/admin/delete-user/3 -H "X-User-ID: 2" -H "X-Secure-Mode: true"
   ```
@@ -137,14 +148,15 @@ Todas as rotas aceitam o header `X-Secure-Mode: true|false` para alternar entre 
 ---
 
 ### API-6 - Unrestricted Access to Sensitive Business Flows
+*Lógica crítica de negócio sem proteção adequada.*  
 **Descrição:** Ausência de controle de acesso em fluxos de negócio críticos.
 
 **Simulação:** Finalizar pedidos de outros usuários.
-- Vulnerável:
+- 🔓 Vulnerável:
   ```bash
   curl -X POST http://localhost:8000/api6/orders/1002/complete -H "X-Secure-Mode: false"
   ```
-- Seguro:
+- 🔐 Seguro:
   ```bash
   curl -X POST http://localhost:8000/api6/orders/1002/complete -H "X-User-ID: 2" -H "X-Secure-Mode: true"
   ```
@@ -153,6 +165,7 @@ Todas as rotas aceitam o header `X-Secure-Mode: true|false` para alternar entre 
 ---
 
 ### API-7 - Server Side Request Forgery (SSRF)
+*API acessando recursos internos indevidos.*  
 **Descrição:** Requisições feitas pelo servidor sem validação podem expor recursos internos.
 
 **Pré-requisito:**  Para executar esta DEMO, tem que subir um servidor na porta 80  
@@ -166,11 +179,11 @@ Todas as rotas aceitam o header `X-Secure-Mode: true|false` para alternar entre 
 
 
 **Simulação:** Servidor acessando `localhost` por requisição externa.
-- Vulnerável:
+- 🔓 Vulnerável:
   ```bash
   curl "http://localhost:8000/api7/fetch-url?target_url=http://127.0.0.1:80" -H "X-Secure-Mode: false"
   ```
-- Seguro:
+- 🔐 Seguro:
   ```bash
   curl "http://localhost:8000/api7/fetch-url?target_url=http://127.0.0.1:80" -H "X-Secure-Mode: true"
   ```
@@ -179,14 +192,15 @@ Todas as rotas aceitam o header `X-Secure-Mode: true|false` para alternar entre 
 ---
 
 ### API-8 - Security Misconfiguration
+*Configurações inseguras no ambiente de API.*  
 **Descrição:** Configurações inseguras como debug ativo e ausência de headers de segurança.
 
 **Simulação:** Expor informações sensíveis no debug.
-- Vulnerável:
+- 🔓 Vulnerável:
   ```bash
   curl http://localhost:8000/api8/debug -H "X-Secure-Mode: false"
   ```
-- Seguro:
+- 🔐 Seguro:
   ```bash
   curl -i http://localhost:8000/api8/debug -H "X-Secure-Mode: true"
   ```
@@ -195,17 +209,18 @@ Todas as rotas aceitam o header `X-Secure-Mode: true|false` para alternar entre 
 ---
 
 ### API-9 - Improper Inventory Management
+*Falta de controle e documentação de endpoints.*  
 **Descrição:** Endpoints internos ou antigos não documentados permanecem acessíveis.
 
 **Simulação:** Acesso a endpoints internos e legados.
-- Vulnerável:
+- 🔓 Vulnerável:
   ```bash
   curl http://localhost:8000/api9/internal/config -H "X-Secure-Mode: false"
   ```
   ```bash
   curl http://localhost:8000/api9/v1/legacy-endpoint -H "X-Secure-Mode: false"
   ```
-- Seguro:
+- 🔐 Seguro:
   ```bash
   curl http://localhost:8000/api9/internal/config -H "X-Secure-Mode: true"
   ```
@@ -217,6 +232,7 @@ Todas as rotas aceitam o header `X-Secure-Mode: true|false` para alternar entre 
 ---
 
 ### API-10 - Unsafe Consumption of APIs
+*Confiar cegamente em APIs de terceiros.*  
 **Descrição:** Confiar cegamente em APIs de terceiros sem validação.
 
 **Pré-requisito:**  Para executar esta DEMO, é necessário:  
@@ -225,11 +241,11 @@ Todas as rotas aceitam o header `X-Secure-Mode: true|false` para alternar entre 
 3º) Pegar a existente ou gerar uma nova "API Key".  
 
 **Simulação:** Consumir resposta externa sem validar estrutura.
-- Vulnerável:
+- 🔓 Vulnerável:
   ```bash
   curl "http://localhost:8000/api10/external/weather?city=Sao Paulo&api_key=SUA_API_KEY" -H "X-Secure-Mode: false"
   ```
-- Seguro:
+- 🔐 Seguro:
   ```bash
   curl "http://localhost:8000/api10/external/weather?city=Sao Paulo&api_key=SUA_API_KEY" -H "X-Secure-Mode: true"
   ```
@@ -237,11 +253,11 @@ Todas as rotas aceitam o header `X-Secure-Mode: true|false` para alternar entre 
 
 ---
 
-😉 Na pasta "tests", contem o arquivo da collection Postman com todos os cenários descritos acima. É só baixar e rodar no [Postman](https://postman.com/).  ✔️  
+📢 Criei uma pasta chamada "tests" e coloquei o arquivo da collection Postman com todos os cenários descritos acima. É só baixar e rodar no [Postman](https://postman.com/).  ✔️  
 
 ---
 
-## 🚀 Autor
+## 📄 Autor
 
 Desenvolvido por **Fabrício Alves** para a palestra **APIX 2025** ([link do evento](https://www.sensedia.com.br/apix)).
 

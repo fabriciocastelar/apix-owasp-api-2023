@@ -875,7 +875,7 @@
 							}
 						],
 						"url": {
-							"raw": "http://localhost:8000/api10/external/weather?city=Sao Paulo&api_key=9631f4bbc42e4764bbe213424252604",
+							"raw": "http://localhost:8000/api10/external/weather?city=Sao Paulo&api_key=<coloque a sua key aqui>",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -893,7 +893,7 @@
 								},
 								{
 									"key": "api_key",
-									"value": "9631f4bbc42e4764bbe213424252604",
+									"value": "<coloque a sua key aqui>",
 									"description": "https://www.weatherapi.com/my/"
 								}
 							]

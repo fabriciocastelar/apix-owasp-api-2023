@@ -1,0 +1,68 @@
+# OWASP API Security Top 10
+
+# Todos os comandos de ataque/defesa:
+
+## API-1 - Broken Object Level Authorization
+# Vulnerável
+curl http://localhost:8000/api1/users/2 -H "X-User-ID: 1" -H "X-Secure-Mode: false"
+# Seguro
+curl http://localhost:8000/api1/users/2 -H "X-User-ID: 1" -H "X-Secure-Mode: true"
+
+## API-2 - Broken Authentication
+# Vulnerável
+curl -X POST http://localhost:8000/api2/login -H "Content-Type: application/json" -H "X-Secure-Mode: false" -d '{"username": "evil", "password": "123"}'
+# Seguro
+curl -X POST http://localhost:8000/api2/login -H "Content-Type: application/json" -H "X-Secure-Mode: true" -d '{"username": "alice", "password": "1234"}'
+
+## API-3 - Broken Object Property Level Authorization
+# Vulnerável
+curl -X PUT http://localhost:8000/api3/users/2 -H "Content-Type: application/json" -H "X-User-ID: 2" -H "X-Secure-Mode: false" -d '{"name": "Bob Hacker", "email": "bob@evil.com", "is_admin": true}'
+# Seguro
+curl -X PUT http://localhost:8000/api3/users/2 -H "Content-Type: application/json" -H "X-User-ID: 2" -H "X-Secure-Mode: true" -d '{"name": "Bob Hacker", "email": "bob@evil.com", "is_admin": true}'
+
+## API-4 - Unrestricted Resource Consumption
+# Vulnerável
+curl "http://localhost:8000/api4/items?limit=10000" -H "X-Secure-Mode: false"
+# Seguro
+curl "http://localhost:8000/api4/items?limit=10000" -H "X-Secure-Mode: true"
+
+## API-5 - Broken Function Level Authorization
+# Vulnerável
+curl -X DELETE http://localhost:8000/api5/admin/delete-user/3 -H "X-User-ID: 2" -H "X-Secure-Mode: false"
+# Seguro
+curl -X DELETE http://localhost:8000/api5/admin/delete-user/3 -H "X-User-ID: 2" -H "X-Secure-Mode: true"
+
+## API-6 - Unrestricted Access to Sensitive Business Flows
+# Vulnerável
+curl -X POST http://localhost:8000/api6/orders/1002/complete -H "X-Secure-Mode: false"
+# Seguro
+curl -X POST http://localhost:8000/api6/orders/1002/complete -H "X-User-ID: 2" -H "X-Secure-Mode: true"
+
+## API-7 - Server Side Request Forgery (SSRF)
+# Vulnerável
+curl "http://localhost:8000/api7/fetch-url?target_url=http://127.0.0.1:80" -H "X-Secure-Mode: false"
+# Seguro
+curl "http://localhost:8000/api7/fetch-url?target_url=http://127.0.0.1:80" -H "X-Secure-Mode: true"
+
+## API-8 - Security Misconfiguration
+# Vulnerável
+curl http://localhost:8000/api8/debug -H "X-Secure-Mode: false"
+# Seguro
+curl -i http://localhost:8000/api8/debug -H "X-Secure-Mode: true"
+
+## API-9 - Improper Inventory Management
+# Vulnerável - Acesso interno
+curl http://localhost:8000/api9/internal/config -H "X-Secure-Mode: false"
+# Seguro - Acesso interno
+curl http://localhost:8000/api9/internal/config -H "X-Secure-Mode: true"
+# Vulnerável - Endpoint legado
+curl http://localhost:8000/api9/v1/legacy-endpoint -H "X-Secure-Mode: false"
+# Seguro - Endpoint legado
+curl http://localhost:8000/api9/v1/legacy-endpoint -H "X-Secure-Mode: true"
+
+## API1-0 - Unsafe Consumption of APIs
+# Vulnerável
+curl "http://localhost:8000/api10/external/weather?city=Sao Paulo&api_key=SUA_API_KEY" -H "X-Secure-Mode: false"
+# Seguro
+curl "http://localhost:8000/api10/external/weather?city=Sao Paulo&api_key=SUA_API_KEY" -H "X-Secure-Mode: true"
+

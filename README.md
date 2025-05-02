@@ -75,7 +75,8 @@ Todas as rotas aceitam o header `X-Secure-Mode: true|false` para alternar entre 
   ```bash
   curl http://localhost:8000/api1/users/2 -H "X-User-ID: 1" -H "X-Secure-Mode: true"
   ```
-**Conclusão:** No modo seguro, acesso é negado se o ID não corresponder.
+**Conclusão:** No modo seguro, acesso é negado se o ID não corresponder.  
+[+informações referente a vulnerabilidade API-1.](https://owasp.org/API-Security/editions/2023/en/0xa1-broken-object-level-authorization)
 
 ---
 
@@ -92,7 +93,8 @@ Todas as rotas aceitam o header `X-Secure-Mode: true|false` para alternar entre 
   ```bash
   curl -X POST http://localhost:8000/api2/login -H "Content-Type: application/json" -H "X-Secure-Mode: true" -d '{"username": "alice", "password": "1234"}'
   ```
-**Conclusão:** No modo seguro, apenas credenciais válidas funcionam.
+**Conclusão:** No modo seguro, apenas credenciais válidas funcionam.  
+[+informações referente a vulnerabilidade API-2.](https://owasp.org/API-Security/editions/2023/en/0xa2-broken-authentication)
 
 ---
 
@@ -109,7 +111,8 @@ Todas as rotas aceitam o header `X-Secure-Mode: true|false` para alternar entre 
   ```bash
   curl -X PUT http://localhost:8000/api3/users/2 -H "Content-Type: application/json" -H "X-User-ID: 2" -H "X-Secure-Mode: true" -d '{"name": "Bob Hacker", "email": "bob@evil.com", "is_admin": true}'
   ```
-**Conclusão:** Campo `is_admin` é ignorado no modo seguro.
+**Conclusão:** Campo `is_admin` é ignorado no modo seguro.  
+[+informações referente a vulnerabilidade API-3.](https://owasp.org/API-Security/editions/2023/en/0xa3-broken-object-property-level-authorization)
 
 ---
 
@@ -126,7 +129,8 @@ Todas as rotas aceitam o header `X-Secure-Mode: true|false` para alternar entre 
   ```bash
   curl "http://localhost:8000/api4/items?limit=10000" -H "X-Secure-Mode: true"
   ```
-**Conclusão:** No modo seguro, é imposto limite de 100 registros.
+**Conclusão:** No modo seguro, é imposto limite de 100 registros.  
+[+informações referente a vulnerabilidade API-4.](https://owasp.org/API-Security/editions/2023/en/0xa4-unrestricted-resource-consumption)
 
 ---
 
@@ -143,7 +147,8 @@ Todas as rotas aceitam o header `X-Secure-Mode: true|false` para alternar entre 
   ```bash
   curl -X DELETE http://localhost:8000/api5/admin/delete-user/3 -H "X-User-ID: 2" -H "X-Secure-Mode: true"
   ```
-**Conclusão:** No modo seguro, apenas usuários com perfil de admin podem executar ações administrativas.
+**Conclusão:** No modo seguro, apenas usuários com perfil de admin podem executar ações administrativas.  
+[+informações referente a vulnerabilidade API-5.](https://owasp.org/API-Security/editions/2023/en/0xa5-broken-function-level-authorization)
 
 ---
 
@@ -160,7 +165,8 @@ Todas as rotas aceitam o header `X-Secure-Mode: true|false` para alternar entre 
   ```bash
   curl -X POST http://localhost:8000/api6/orders/1002/complete -H "X-User-ID: 2" -H "X-Secure-Mode: true"
   ```
-**Conclusão:** No modo seguro, apenas o proprietário do pedido consegue completar a operação.
+**Conclusão:** No modo seguro, apenas o proprietário do pedido consegue completar a operação.  
+[+informações referente a vulnerabilidade API-6.](https://owasp.org/API-Security/editions/2023/en/0xa6-unrestricted-access-to-sensitive-business-flows)
 
 ---
 
@@ -187,7 +193,8 @@ Todas as rotas aceitam o header `X-Secure-Mode: true|false` para alternar entre 
   ```bash
   curl "http://localhost:8000/api7/fetch-url?target_url=http://127.0.0.1:80" -H "X-Secure-Mode: true"
   ```
-**Conclusão:** No modo seguro, URLs internas são bloqueadas.
+**Conclusão:** No modo seguro, URLs internas são bloqueadas.  
+[+informações referente a vulnerabilidade API-7.](https://owasp.org/API-Security/editions/2023/en/0xa7-server-side-request-forgery)
 
 ---
 
@@ -204,7 +211,8 @@ Todas as rotas aceitam o header `X-Secure-Mode: true|false` para alternar entre 
   ```bash
   curl -i http://localhost:8000/api8/debug -H "X-Secure-Mode: true"
   ```
-**Conclusão:** No modo seguro, oculta detalhes técnicos e aplica headers de segurança.
+**Conclusão:** No modo seguro, oculta detalhes técnicos e aplica headers de segurança.  
+[+informações referente a vulnerabilidade API-8.](https://owasp.org/API-Security/editions/2023/en/0xa8-security-misconfiguration)
 
 ---
 
@@ -227,7 +235,8 @@ Todas as rotas aceitam o header `X-Secure-Mode: true|false` para alternar entre 
   ```bash
   curl http://localhost:8000/api9/v1/legacy-endpoint -H "X-Secure-Mode: true"
   ```
-**Conclusão:** No modo seguro, rotas internas são escondidas ou desativadas.
+**Conclusão:** No modo seguro, rotas internas são escondidas ou desativadas.  
+[+informações referente a vulnerabilidade API-9.](https://owasp.org/API-Security/editions/2023/en/0xa9-improper-inventory-management)
 
 ---
 
@@ -250,6 +259,7 @@ Todas as rotas aceitam o header `X-Secure-Mode: true|false` para alternar entre 
   curl "http://localhost:8000/api10/external/weather?city=Sao Paulo&api_key=SUA_API_KEY" -H "X-Secure-Mode: true"
   ```
 **Conclusão:** No modo seguro, apenas campos esperados são aceitos.  
+[+informações referente a vulnerabilidade API-10.](https://owasp.org/API-Security/editions/2023/en/0xaa-unsafe-consumption-of-apis)
 
 ---
 
@@ -259,7 +269,7 @@ Todas as rotas aceitam o header `X-Secure-Mode: true|false` para alternar entre 
 
 ## 📄 Autor
 
-Desenvolvido por **Fabrício Alves** para a palestra **APIX 2025** ([link do evento](https://www.sensedia.com.br/apix)).
+Desenvolvido por **Fabrício Alves** para o evento **APIX 2025** ([link do evento](https://www.sensedia.com.br/apix)), palestra "*10 formas de invadir sua API — e como impedir todas elas*" no palco "*Campfire*".
 
 Conecte-se comigo no [LinkedIn](https://www.linkedin.com/in/fabriciocastelar/)!
 

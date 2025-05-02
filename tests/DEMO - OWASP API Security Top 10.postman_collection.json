@@ -11,6 +11,22 @@
 			"item": [
 				{
 					"name": "(api-1) fault",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Access expected for testing!\", function ()\r",
+									"    {\r",
+									"        pm.expect(pm.response.code).to.be.oneOf([200]);\r",
+									"    }\r",
+									");"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
 					"request": {
 						"method": "GET",
 						"header": [
@@ -42,6 +58,22 @@
 				},
 				{
 					"name": "(api-1) secure",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Block expected for testing!\", function ()\r",
+									"    {\r",
+									"        pm.expect(pm.response.code).to.be.oneOf([403]);\r",
+									"    }\r",
+									");"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
 					"request": {
 						"method": "GET",
 						"header": [
@@ -81,6 +113,22 @@
 					"item": [
 						{
 							"name": "(api-2) login - fault",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Access expected for testing!\", function ()\r",
+											"    {\r",
+											"        pm.expect(pm.response.code).to.be.oneOf([200]);\r",
+											"    }\r",
+											");"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
 							"request": {
 								"method": "POST",
 								"header": [
@@ -116,6 +164,22 @@
 						},
 						{
 							"name": "(api-2) login - secure",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Access expected for testing!\", function ()\r",
+											"    {\r",
+											"        pm.expect(pm.response.code).to.be.oneOf([200]);\r",
+											"    }\r",
+											");"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
 							"request": {
 								"method": "POST",
 								"header": [
@@ -160,6 +224,22 @@
 					"item": [
 						{
 							"name": "(api-2) profile - Invalid token",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Block expected for testing!\", function ()\r",
+											"    {\r",
+											"        pm.expect(pm.response.code).to.be.oneOf([401]);\r",
+											"    }\r",
+											");"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
 							"request": {
 								"method": "GET",
 								"header": [
@@ -190,6 +270,22 @@
 						},
 						{
 							"name": "(api-2) profile - Correct token",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Access expected for testing!\", function ()\r",
+											"    {\r",
+											"        pm.expect(pm.response.code).to.be.oneOf([200]);\r",
+											"    }\r",
+											");"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
 							"request": {
 								"method": "GET",
 								"header": [
@@ -227,6 +323,22 @@
 			"item": [
 				{
 					"name": "(api-3) fault",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Data change expected for testing!\", function ()\r",
+									"    {\r",
+									"        pm.expect(pm.response.code).to.be.oneOf([200]);\r",
+									"    }\r",
+									");"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
 					"request": {
 						"method": "PUT",
 						"header": [
@@ -267,6 +379,22 @@
 				},
 				{
 					"name": "(api-3) secure",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"NO data change expected for testing!\", function ()\r",
+									"    {\r",
+									"        pm.expect(pm.response.code).to.be.oneOf([200]);\r",
+									"    }\r",
+									");"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
 					"request": {
 						"method": "PUT",
 						"header": [
@@ -312,6 +440,22 @@
 			"item": [
 				{
 					"name": "(api-4) fault",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"LOTS of data returned expected for testing!\", function ()\r",
+									"    {\r",
+									"        pm.expect(pm.response.code).to.be.oneOf([200]);\r",
+									"    }\r",
+									");"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
 					"request": {
 						"method": "GET",
 						"header": [
@@ -344,6 +488,22 @@
 				},
 				{
 					"name": "(api-4) secure",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Block expected for testing!\", function ()\r",
+									"    {\r",
+									"        pm.expect(pm.response.code).to.be.oneOf([400]);\r",
+									"    }\r",
+									");"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
 					"request": {
 						"method": "GET",
 						"header": [
@@ -381,6 +541,22 @@
 			"item": [
 				{
 					"name": "(api-5) fault (\"usuário comum pode deletar\")",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Access expected for testing!\", function ()\r",
+									"    {\r",
+									"        pm.expect(pm.response.code).to.be.oneOf([200]);\r",
+									"    }\r",
+									");"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
 					"request": {
 						"method": "DELETE",
 						"header": [
@@ -413,6 +589,22 @@
 				},
 				{
 					"name": "(api-5) secure (\"nega acesso a não-admins\")",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Block expected for testing!\", function ()\r",
+									"    {\r",
+									"        pm.expect(pm.response.code).to.be.oneOf([403]);\r",
+									"    }\r",
+									");"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
 					"request": {
 						"method": "DELETE",
 						"header": [
@@ -445,6 +637,22 @@
 				},
 				{
 					"name": "(api-5) secure (\"usuário admin\")",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Access expected for testing!\", function ()\r",
+									"    {\r",
+									"        pm.expect(pm.response.code).to.be.oneOf([200]);\r",
+									"    }\r",
+									");"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
 					"request": {
 						"method": "DELETE",
 						"header": [
@@ -483,6 +691,22 @@
 			"item": [
 				{
 					"name": "(api-6) fault (qualquer um pode completar qualquer pedido)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Access expected for testing!\", function ()\r",
+									"    {\r",
+									"        pm.expect(pm.response.code).to.be.oneOf([200]);\r",
+									"    }\r",
+									");"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
 					"request": {
 						"method": "POST",
 						"header": [
@@ -511,6 +735,22 @@
 				},
 				{
 					"name": "(api-6) secure (verifica propriedade do pedido)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Block expected for testing!\", function ()\r",
+									"    {\r",
+									"        pm.expect(pm.response.code).to.be.oneOf([403]);\r",
+									"    }\r",
+									");"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
 					"request": {
 						"method": "POST",
 						"header": [
@@ -539,6 +779,22 @@
 				},
 				{
 					"name": "(api-6) secure (identificação correta)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Access expected for testing!\", function ()\r",
+									"    {\r",
+									"        pm.expect(pm.response.code).to.be.oneOf([200]);\r",
+									"    }\r",
+									");"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
 					"request": {
 						"method": "POST",
 						"header": [
@@ -588,7 +844,12 @@
 									"    C:\\> python -m http.server 80\r",
 									"3º) Executar o cURL de ataque;\r",
 									"4º) Mostrar no DOS que o request chegou e não deveria.\r",
-									"*/"
+									"*/\r",
+									"pm.test(\"Access expected for testing!\", function ()\r",
+									"    {\r",
+									"        pm.expect(pm.response.code).to.be.oneOf([200]);\r",
+									"    }\r",
+									");"
 								],
 								"type": "text/javascript",
 								"packages": {}
@@ -627,6 +888,22 @@
 				},
 				{
 					"name": "(api-7) secure (bloqueio de localhost)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Block expected for testing!\", function ()\r",
+									"    {\r",
+									"        pm.expect(pm.response.code).to.be.oneOf([400]);\r",
+									"    }\r",
+									");"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
 					"request": {
 						"method": "GET",
 						"header": [
@@ -659,6 +936,22 @@
 				},
 				{
 					"name": "(api-7) secure (permitido)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Access expected for testing!\", function ()\r",
+									"    {\r",
+									"        pm.expect(pm.response.code).to.be.oneOf([200]);\r",
+									"    }\r",
+									");"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
 					"request": {
 						"method": "GET",
 						"header": [
@@ -696,6 +989,22 @@
 			"item": [
 				{
 					"name": "(api-8) fault",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Access expected for testing!\", function ()\r",
+									"    {\r",
+									"        pm.expect(pm.response.code).to.be.oneOf([200]);\r",
+									"    }\r",
+									");"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
 					"request": {
 						"method": "GET",
 						"header": [
@@ -722,6 +1031,22 @@
 				},
 				{
 					"name": "(api-8) secure",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Access expected for testing!\", function ()\r",
+									"    {\r",
+									"        pm.expect(pm.response.code).to.be.oneOf([200]);\r",
+									"    }\r",
+									");"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
 					"request": {
 						"method": "GET",
 						"header": [
@@ -753,6 +1078,22 @@
 			"item": [
 				{
 					"name": "(api-9) fault (acesso a rota interna (internal/config))",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Access expected for testing!\", function ()\r",
+									"    {\r",
+									"        pm.expect(pm.response.code).to.be.oneOf([200]);\r",
+									"    }\r",
+									");"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
 					"request": {
 						"method": "GET",
 						"header": [
@@ -780,6 +1121,22 @@
 				},
 				{
 					"name": "(api-9) secure (acesso negado (internal/config))",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Data not found expected for test!\", function ()\r",
+									"    {\r",
+									"        pm.expect(pm.response.code).to.be.oneOf([404]);\r",
+									"    }\r",
+									");"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
 					"request": {
 						"method": "GET",
 						"header": [
@@ -807,6 +1164,22 @@
 				},
 				{
 					"name": "(api-9) secure (acesso a endpoint legado (v1/legacy-endpoint))",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Access expected for testing!\", function ()\r",
+									"    {\r",
+									"        pm.expect(pm.response.code).to.be.oneOf([200]);\r",
+									"    }\r",
+									");"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
 					"request": {
 						"method": "GET",
 						"header": [
@@ -834,6 +1207,22 @@
 				},
 				{
 					"name": "(api-9) secure (endpoint legado bloqueado)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Block expected for test!\", function ()\r",
+									"    {\r",
+									"        pm.expect(pm.response.code).to.be.oneOf([410]);\r",
+									"    }\r",
+									");"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
 					"request": {
 						"method": "GET",
 						"header": [
@@ -866,6 +1255,22 @@
 			"item": [
 				{
 					"name": "(api-10) fault",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Access expected for testing!\", function ()\r",
+									"    {\r",
+									"        pm.expect(pm.response.code).to.be.oneOf([200]);\r",
+									"    }\r",
+									");"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
 					"request": {
 						"method": "GET",
 						"header": [
@@ -875,7 +1280,7 @@
 							}
 						],
 						"url": {
-							"raw": "http://localhost:8000/api10/external/weather?city=Sao Paulo&api_key=<coloque a sua key aqui>",
+							"raw": "http://localhost:8000/api10/external/weather?city=Sao Paulo&api_key={{api_key}}",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -893,7 +1298,7 @@
 								},
 								{
 									"key": "api_key",
-									"value": "<coloque a sua key aqui>",
+									"value": "{{api_key}}",
 									"description": "https://www.weatherapi.com/my/"
 								}
 							]
@@ -904,6 +1309,22 @@
 				},
 				{
 					"name": "(api-10) secure",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Access expected for testing!\", function ()\r",
+									"    {\r",
+									"        pm.expect(pm.response.code).to.be.oneOf([200]);\r",
+									"    }\r",
+									");"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
 					"request": {
 						"method": "GET",
 						"header": [
@@ -913,7 +1334,7 @@
 							}
 						],
 						"url": {
-							"raw": "http://localhost:8000/api10/external/weather?city=Sao Paulo&api_key=nononono",
+							"raw": "http://localhost:8000/api10/external/weather?city=Sao Paulo&api_key={{api_key}}",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -931,7 +1352,7 @@
 								},
 								{
 									"key": "api_key",
-									"value": "nononono",
+									"value": "{{api_key}}",
 									"description": "https://www.weatherapi.com/my/"
 								}
 							]

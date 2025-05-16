@@ -57,7 +57,7 @@
 					"response": []
 				},
 				{
-					"name": "(api-1) secure",
+					"name": "(api-1) secure - block",
 					"event": [
 						{
 							"listen": "test",
@@ -102,6 +102,53 @@
 						"description": "Generated from cURL: curl -H \"X-User-ID: 1\" -H \"X-Secure-Mode: false\" http://localhost:8000/api1/users/2\r\n"
 					},
 					"response": []
+				},
+				{
+					"name": "(api-1) secure - pass",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Block expected for testing!\", function ()\r",
+									"    {\r",
+									"        pm.expect(pm.response.code).to.be.oneOf([200]);\r",
+									"    }\r",
+									");"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-Secure-Mode",
+								"value": "true"
+							},
+							{
+								"key": "X-User-ID",
+								"value": "1"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8000/api1/users/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api1",
+								"users",
+								"1"
+							]
+						},
+						"description": "Generated from cURL: curl -H \"X-User-ID: 1\" -H \"X-Secure-Mode: false\" http://localhost:8000/api1/users/2\r\n"
+					},
+					"response": []
 				}
 			]
 		},
@@ -139,7 +186,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"username\": \"robber\",\r\n    \"password\": \"pass123\"\r\n}",
+									"raw": "{\r\n    \"username\": \"alice\",\r\n    \"password\": \"pass123' or 1=1 ''='\"\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -159,6 +206,57 @@
 									]
 								},
 								"description": "Generated from cURL: curl -X POST http://localhost:8000/api2/login -H \"Content-Type: application/json\" -H \"X-Secure-Mode: false\" -d '{\"username\": \"evil\", \"password\": \"123\"}'\r\n"
+							},
+							"response": []
+						},
+						{
+							"name": "(api-2) login - secure - error pass",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Access expected for testing!\", function ()\r",
+											"    {\r",
+											"        pm.expect(pm.response.code).to.be.oneOf([401]);\r",
+											"    }\r",
+											");"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "X-Secure-Mode",
+										"value": "true"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"username\": \"alice\",\r\n    \"password\": \"pass123' or 1=1 ''='\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8000/api2/login",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8000",
+									"path": [
+										"api2",
+										"login"
+									]
+								},
+								"description": "Generated from cURL: curl -X POST http://localhost:8000/api2/login -H \"Content-Type: application/json\" -H \"X-Secure-Mode: true\" -d '{\"username\": \"alice\", \"password\": \"1234\"}'\r\n"
 							},
 							"response": []
 						},
@@ -183,10 +281,6 @@
 							"request": {
 								"method": "POST",
 								"header": [
-									{
-										"key": "Content-Type",
-										"value": "application/json"
-									},
 									{
 										"key": "X-Secure-Mode",
 										"value": "true"
@@ -487,7 +581,7 @@
 					"response": []
 				},
 				{
-					"name": "(api-4) secure",
+					"name": "(api-4) secure - 10.000",
 					"event": [
 						{
 							"listen": "test",
@@ -533,6 +627,54 @@
 						"description": "Generated from cURL: curl -H \"X-Secure-Mode: true\" \"http://localhost:8000/api4/items?limit=10000\"\r\n"
 					},
 					"response": []
+				},
+				{
+					"name": "(api-4) secure - 100",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Block expected for testing!\", function ()\r",
+									"    {\r",
+									"        pm.expect(pm.response.code).to.be.oneOf([200]);\r",
+									"    }\r",
+									");"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-Secure-Mode",
+								"value": "true"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8000/api4/items?limit=100",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api4",
+								"items"
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "100"
+								}
+							]
+						},
+						"description": "Generated from cURL: curl -H \"X-Secure-Mode: true\" \"http://localhost:8000/api4/items?limit=10000\"\r\n"
+					},
+					"response": []
 				}
 			]
 		},
@@ -540,7 +682,7 @@
 			"name": "API-5",
 			"item": [
 				{
-					"name": "(api-5) fault (\"usuário comum pode deletar\")",
+					"name": "(api-5) fault -> \"usuário comum pode deletar\"",
 					"event": [
 						{
 							"listen": "test",
@@ -566,7 +708,8 @@
 							},
 							{
 								"key": "X-User-ID",
-								"value": "2"
+								"value": "2",
+								"description": "common user"
 							}
 						],
 						"url": {
@@ -588,7 +731,7 @@
 					"response": []
 				},
 				{
-					"name": "(api-5) secure (\"nega acesso a não-admins\")",
+					"name": "(api-5) secure -> \"nega acesso a não-admins\"",
 					"event": [
 						{
 							"listen": "test",
@@ -614,7 +757,8 @@
 							},
 							{
 								"key": "X-User-ID",
-								"value": "2"
+								"value": "2",
+								"description": "common user"
 							}
 						],
 						"url": {
@@ -636,7 +780,7 @@
 					"response": []
 				},
 				{
-					"name": "(api-5) secure (\"usuário admin\")",
+					"name": "(api-5) secure -> \"usuário admin\"",
 					"event": [
 						{
 							"listen": "test",
@@ -690,7 +834,7 @@
 			"name": "API-6",
 			"item": [
 				{
-					"name": "(api-6) fault (qualquer um pode completar qualquer pedido)",
+					"name": "(api-6) fault -> qualquer um pode completar qualquer pedido",
 					"event": [
 						{
 							"listen": "test",
@@ -734,7 +878,7 @@
 					"response": []
 				},
 				{
-					"name": "(api-6) secure (verifica propriedade do pedido)",
+					"name": "(api-6) secure -> verifica propriedade do pedido",
 					"event": [
 						{
 							"listen": "test",
@@ -778,7 +922,7 @@
 					"response": []
 				},
 				{
-					"name": "(api-6) secure (identificação correta)",
+					"name": "(api-6) secure -> identificação correta",
 					"event": [
 						{
 							"listen": "test",
@@ -799,12 +943,13 @@
 						"method": "POST",
 						"header": [
 							{
-								"key": "X-User-ID",
-								"value": "2"
-							},
-							{
 								"key": "X-Secure-Mode",
 								"value": "true"
+							},
+							{
+								"key": "X-User-ID",
+								"value": "2",
+								"description": "user"
 							}
 						],
 						"url": {
@@ -887,7 +1032,7 @@
 					"response": []
 				},
 				{
-					"name": "(api-7) secure (bloqueio de localhost)",
+					"name": "(api-7) secure -> bloqueio de localhost",
 					"event": [
 						{
 							"listen": "test",
@@ -935,7 +1080,7 @@
 					"response": []
 				},
 				{
-					"name": "(api-7) secure (permitido)",
+					"name": "(api-7) secure -> permitido",
 					"event": [
 						{
 							"listen": "test",
@@ -1077,7 +1222,7 @@
 			"name": "API-9",
 			"item": [
 				{
-					"name": "(api-9) fault (acesso a rota interna (internal/config))",
+					"name": "(api-9) fault -> acesso a rota interna (internal/config)",
 					"event": [
 						{
 							"listen": "test",
@@ -1120,7 +1265,7 @@
 					"response": []
 				},
 				{
-					"name": "(api-9) secure (acesso negado (internal/config))",
+					"name": "(api-9) secure -> acesso negado (internal/config)",
 					"event": [
 						{
 							"listen": "test",
@@ -1163,7 +1308,7 @@
 					"response": []
 				},
 				{
-					"name": "(api-9) secure (acesso a endpoint legado (v1/legacy-endpoint))",
+					"name": "(api-9) secure -> acesso a endpoint legado (v1/legacy-endpoint)",
 					"event": [
 						{
 							"listen": "test",
@@ -1206,7 +1351,7 @@
 					"response": []
 				},
 				{
-					"name": "(api-9) secure (endpoint legado bloqueado)",
+					"name": "(api-9) secure -> endpoint legado bloqueado",
 					"event": [
 						{
 							"listen": "test",
@@ -1280,7 +1425,7 @@
 							}
 						],
 						"url": {
-							"raw": "http://localhost:8000/api10/external/weather?city=Sao Paulo&api_key={{api_key}}",
+							"raw": "http://localhost:8000/api10/external/weather?city=Sao Paulo&api_key=9631f4bbc42e4764bbe213424252604",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -1298,7 +1443,7 @@
 								},
 								{
 									"key": "api_key",
-									"value": "{{api_key}}",
+									"value": "9631f4bbc42e4764bbe213424252604",
 									"description": "https://www.weatherapi.com/my/"
 								}
 							]
@@ -1334,7 +1479,7 @@
 							}
 						],
 						"url": {
-							"raw": "http://localhost:8000/api10/external/weather?city=Sao Paulo&api_key={{api_key}}",
+							"raw": "http://localhost:8000/api10/external/weather?city=Sao Paulo&api_key=9631f4bbc42e4764bbe213424252604",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -1352,7 +1497,7 @@
 								},
 								{
 									"key": "api_key",
-									"value": "{{api_key}}",
+									"value": "9631f4bbc42e4764bbe213424252604",
 									"description": "https://www.weatherapi.com/my/"
 								}
 							]

@@ -10,8 +10,8 @@ def debug_endpoint(request: Request):
         # ❌ Modo inseguro: retorna detalhes internos
         return {
             "debug": True,
-            "server_version": "FastAPI 0.100",
-            "database_info": "PostgreSQL 13.3",
+            "server_version": "FastAPI 0.115.12",
+            "database_info": "PostgreSQL 17.5",
             "internal_ips": ["127.0.0.1", "10.0.0.5"]
         }
     else:

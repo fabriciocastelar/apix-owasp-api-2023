@@ -1,6 +1,6 @@
-# pip install uvicorn
-# .\venv\Scripts\activate
-# uvicorn app.main:app --reload
+#-- Project start in console
+#      .\venv\Scripts\activate
+#      uvicorn app.main:app --reload
 
 from fastapi import FastAPI
 from app.routers import api1_broken_object_level_auth
